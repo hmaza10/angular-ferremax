@@ -19,6 +19,10 @@ export class Navbar {
     this.usuario$ = this.authservice.currentUser$;
   }
 
+  esEmpleado(usuario: Usuario): boolean {
+    return usuario.roles?.includes('EMPLEADO') ?? false;
+  }
+
   cerrarSesion() {
     this.authservice.logout().subscribe(() => {
       this.router.navigate(['/login']);

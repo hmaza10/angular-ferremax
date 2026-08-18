@@ -8,7 +8,7 @@
   <div class="row g-4">
     <div class="col-lg-6">
       <div class="detail-gallery">
-        <img class="detail-main-img" src="https://placehold.co/500x500/f97316/fff?text=FerreMax" [alt]="producto.nombre">
+        <img class="detail-main-img" [src]="urlImagenProducto(producto)" [alt]="producto.nombre">
       </div>
     </div>
 
@@ -22,7 +22,7 @@
           <div class="d-flex justify-content-between align-items-center mb-3 gap-3">
             <div>
               <div class="text-muted">Precio online</div>
-              <div class="display-6 fw-bold text-success">S/ {{ producto.precio }}</div>
+              <div class="display-6 fw-bold text-success">S/ {{ producto.precio | number:'1.2-2' }}</div>
             </div>
             <span class="badge bg-secondary fs-6">Stock {{ producto.stockActual }}</span>
           </div>
@@ -37,7 +37,9 @@
             <label class="form-label">Cantidad</label>
             <div class="input-group mb-3">
               <input type="number" min="1" value="1" class="form-control">
-              <button class="btn btn-success btn-icon"><i class="bi bi-bag-plus"></i> Agregar al carrito</button>
+              <button class="btn btn-success btn-icon" (click)="agregarAlCarrito(producto.idProducto)">
+                <i class="bi bi-bag-plus"></i> Agregar al carrito
+              </button>
             </div>
           </div>
 
@@ -60,11 +62,11 @@
       <div class="col-sm-6 col-lg-3" *ngFor="let p of similares">
         <div class="card product-card reveal-card">
           <a [routerLink]="['/producto', p.idProducto]">
-            <img class="product-img" src="https://placehold.co/300x300/f97316/fff?text=FerreMax" [alt]="p.nombre">
+            <img class="product-img" [src]="urlImagenProducto(p)" [alt]="p.nombre">
           </a>
           <div class="card-body">
             <h6>{{ p.nombre }}</h6>
-            <strong class="text-success">S/ {{ p.precio }}</strong>
+            <strong class="text-success">S/ {{ p.precio | number:'1.2-2' }}</strong>
           </div>
         </div>
       </div>

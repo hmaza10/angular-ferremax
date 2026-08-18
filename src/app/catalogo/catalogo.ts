@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Productoservice } from './productoservice';
-import { Producto } from './model/Producto';
+import { Producto, urlImagenProducto } from './model/Producto';
+import { Carritoservice } from '../carrito/carritoservice';
+import { Toastservice } from '../shared/toastservice';
 
 @Component({
   selector: 'app-catalogo',
@@ -12,6 +14,8 @@ import { Producto } from './model/Producto';
   styleUrl: './catalogo.css',
 })
 export class Catalogo {
+
+  protected readonly urlImagenProducto = urlImagenProducto;
 
   todosLosProductos: Producto[] = [];
   productosFiltrados: Producto[] = [];
@@ -24,13 +28,26 @@ export class Catalogo {
 
   cargando: boolean = true;
 
-  constructor(private productoservice: Productoservice, private cdr: ChangeDetectorRef) {
+  constructor(private productoservice: Productoservice, private cdr: ChangeDetectorRef, private carritoservice: Carritoservice, private toastservice: Toastservice) {
     this.productoservice.listar().subscribe(productos => {
       this.todosLosProductos = productos;
       this.aplicarFiltro();
       this.cargando = false;
       this.cdr.detectChanges();
     });
+  }
+
+  agregarAlCarrito(idProducto: number) {
+  this.carritoservice.agregar(idProducto).subscribe({
+    next: () => this.toastservice.exito('Producto agregado al carrito'),
+    error: (err) => {
+      if (err.status === 401) {
+        this.toastservice.error('Inicia sesión para agregar productos al carrito');
+      } else {
+        this.toastservice.error('No se pudo agregar el producto');
+      }
+    }
+   });
   }
 
   aplicarFiltro() {

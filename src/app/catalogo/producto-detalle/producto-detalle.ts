@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable, switchMap, map, shareReplay } from 'rxjs';
 import { Productoservice } from '../productoservice';
-import { Producto } from '../model/Producto';
+import { Producto, urlImagenProducto } from '../model/Producto';
+import { Carritoservice } from '../../carrito/carritoservice';
+import { Toastservice } from '../../shared/toastservice';
 
 @Component({
   selector: 'app-producto-detalle',
@@ -13,10 +15,13 @@ import { Producto } from '../model/Producto';
 })
 export class ProductoDetalle {
 
+  protected readonly urlImagenProducto = urlImagenProducto;
+
   producto$: Observable<Producto>;
   similares$: Observable<Producto[]>;
 
-  constructor(private route: ActivatedRoute, private productoservice: Productoservice) {
+  constructor(private route: ActivatedRoute, private productoservice: Productoservice, private carritoservice: Carritoservice,
+  private toastservice: Toastservice) {
 
     this.producto$ = this.route.paramMap.pipe(
       switchMap(params => {
@@ -39,4 +44,18 @@ export class ProductoDetalle {
       )
     );
   }
+
+  agregarAlCarrito(idProducto: number) {
+    this.carritoservice.agregar(idProducto).subscribe({
+      next: () => this.toastservice.exito('Producto agregado al carrito'),
+      error: (err) => {
+        if (err.status === 401) {
+          this.toastservice.error('Inicia sesión para agregar productos al carrito');
+        } else {
+          this.toastservice.error('No se pudo agregar el producto');
+        }
+      }
+    });
+  }
+
 }

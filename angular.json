@@ -32,7 +32,12 @@
               "public/css/layout.css",
               "public/css/auth.css",
               "public/css/home.css",
-              "public/css/catalog.css"
+              "public/css/catalog.css",
+              "public/css/assistant.css",
+              "public/css/cart.css",
+              "public/css/checkout.css",
+              "public/css/pago.css",
+              "public/css/admin.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js"

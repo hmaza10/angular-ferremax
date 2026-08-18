@@ -31,7 +31,7 @@ export class Login {
 
         // Redirige segun el rol del usuario
         if (respuesta.usuario.roles.includes('ADMIN')) {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/inicio']);
         } else if (respuesta.usuario.roles.includes('EMPLEADO')) {
           this.router.navigate(['/empleado']);
         } else {

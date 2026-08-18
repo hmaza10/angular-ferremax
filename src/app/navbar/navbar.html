@@ -10,7 +10,65 @@
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" routerLink="/inicio"><i class="bi bi-house"></i> Inicio</a></li>
-      </ul>
+        <ng-container *ngIf="usuario$ | async as usuario">
+          <li class="nav-item dropdown" *ngIf="esEmpleado(usuario)">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-workspace"></i> Empleado</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/empleado/panel">
+                  <i class="bi bi-speedometer2"></i> Panel de empleado</a>
+                </li>
+                <li><a class="dropdown-item" routerLink="/empleado/pedidos">
+                  <i class="bi bi-bag-check"></i> Historial de pedidos</a>
+                </li>
+                <li><a class="dropdown-item" routerLink="/empleado/inventario">
+                  <i class="bi bi-box-seam"></i> Inventario</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown" *ngIf="esEmpleado(usuario)">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-receipt"></i> Ventas</a>
+
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/ventas/registrar">
+                    <i class="bi bi-cart-plus"></i> Registrar venta</a>
+                  </li>
+
+                  <li><a class="dropdown-item" routerLink="/ventas">
+                    <i class="bi bi-list-ul"></i> Listado de ventas</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item dropdown" *ngIf="usuario.roles.includes('ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="bi bi-grid"></i> Administración
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/admin/panel"><i class="bi bi-speedometer2"></i> Panel</a></li>
+                  <li><a class="dropdown-item" routerLink="/admin/personas"><i class="bi bi-people"></i> Usuarios</a></li>
+                  <li><a class="dropdown-item" routerLink="/admin/pedidos"><i class="bi bi-bag-check"></i> Pedidos V2</a></li>
+                  <li><a class="dropdown-item" routerLink="/admin/auditoria"><i class="bi bi-shield-check"></i> Auditoría</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item dropdown" *ngIf="usuario.roles.includes('ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="bi bi-kanban"></i> Operaciones
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/operaciones/catalogo"><i class="bi bi-box-seam"></i> Catálogo</a></li>
+                </ul>
+              </li>
+
+            </ng-container>
+          </ul>
+
+      <a class="btn btn-outline-success btn-sm btn-icon me-2" routerLink="/asesor-ia">
+        <i class="bi bi-stars"></i> AsesorIA
+      </a>
 
       <ng-container *ngIf="usuario$ | async as usuario; else invitado">
         <a class="btn btn-outline-success btn-sm btn-icon me-2" routerLink="/carrito">
