@@ -226,13 +226,36 @@
               <div class="card" style="border-color:#f7941d;">
                 <div class="card-header text-white" style="background-color:#f7941d;"><i class="bi bi-credit-card-fill"></i> Pago con Tarjeta</div>
                 <div class="card-body">
+                  <p class="mb-2"><strong>Banco</strong></p>
+                  <select class="form-select mb-3" [(ngModel)]="bancoTarjeta" name="bancoTarjeta">
+                    <option>BCP</option>
+                    <option>Interbank</option>
+                    <option>BBVA</option>
+                    <option>Scotiabank</option>
+                  </select>
+
+                  <p class="mb-2"><strong>Tipo</strong></p>
+                  <select class="form-select mb-3" [(ngModel)]="tipoTarjeta" name="tipoTarjeta">
+                    <option>Débito</option>
+                    <option>Crédito</option>
+                  </select>
+
+                  <hr>
+
                   <p class="mb-2"><strong>Monto a pagar</strong></p>
                   <h3 style="color:#f7941d;">S/ {{ total | number:'1.2-2' }}</h3>
+
+                  <hr>
+
+                  <label class="form-label">N° Operación</label>
+                  <input type="text" class="form-control" placeholder="Ej: TRX00012345" [(ngModel)]="codigoOperacionTarjeta" name="codigoOperacionTarjeta">
+                  <small class="text-muted mt-2 d-block">Ingrese el número de operación generado por el POS.</small>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
 
         <div *ngIf="metodoPago === 'YAPE'">
           <div class="row align-items-center">
@@ -246,8 +269,18 @@
                   <p class="mb-2"><strong>Cuenta destino</strong></p>
                   <p class="text-success fs-5">FerreMax Demo</p>
                   <p class="mb-3">📱 999 000 111</p>
+
+                  <hr>
+
                   <p class="mb-2"><strong>Monto a pagar</strong></p>
                   <h3 class="text-success">S/ {{ total | number:'1.2-2' }}</h3>
+
+                  <hr>
+
+                  <label class="form-label">Código de operación</label>
+                  <input type="text" class="form-control" placeholder="Ej. YP258963147" [(ngModel)]="codigoOperacionYape" name="codigoOperacionYape">
+                  <small class="text-muted mt-2 d-block">Ingrese el código generado por Yape luego de realizar el pago.</small>
+
                 </div>
               </div>
             </div>

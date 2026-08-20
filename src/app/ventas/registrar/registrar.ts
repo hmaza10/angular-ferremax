@@ -49,6 +49,10 @@ export class Registrar {
   detalle: ItemVentaCarrito[] = [];
 
   metodoPago = '';
+  bancoTarjeta = 'BCP';
+  tipoTarjeta = 'Débito';
+  codigoOperacionTarjeta = '';
+  codigoOperacionYape = '';
 
   subtotal = 0;
   igv = 0;

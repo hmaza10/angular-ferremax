@@ -15,7 +15,7 @@ export class Toast {
   constructor(private toastservice: Toastservice, private cdr: ChangeDetectorRef) {
     this.toastservice.toasts$.subscribe(toasts => {
       this.toasts = toasts;
-      this.cdr.detectChanges();
+      setTimeout(() => this.cdr.detectChanges());
     });
   }
 
