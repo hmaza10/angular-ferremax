@@ -30,6 +30,38 @@ export interface PedidoResumen {
   estado: string;
 }
 
+export interface VentaReporte {
+  idVenta: number;
+  fechaVenta: string;
+  nombreCliente: string;
+  nombreUsuario: string;
+  tipoComprobante: string;
+  serie: string;
+  correlativo: number;
+  metodoPago: string;
+  estado: string;
+  total: number;
+}
+
+export interface PedidoReporte {
+  idPedido: number;
+  fechaPedido: string;
+  nombreCliente: string;
+  nombreUsuario: string;
+  estado: string;
+  direccionEntrega: string;
+  total: number;
+}
+
+export interface Reportes {
+  ventas: VentaReporte[];
+  cantidadVentas: number;
+  totalVentas: number;
+  pedidos: PedidoReporte[];
+  cantidadPedidos: number;
+  totalPedidos: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,4 +81,13 @@ export class Adminservice {
     return this.http.get<{ pedidos: PedidoResumen[] }>(`${API_URL}/pedidos`, { withCredentials: true });
   }
 
+  reportes(ventasDesde?: string, ventasHasta?: string, pedidosDesde?: string, pedidosHasta?: string): Observable<{ reportes: Reportes }> {
+    const params: string[] = [];
+    if (ventasDesde) params.push(`ventasDesde=${ventasDesde}`);
+    if (ventasHasta) params.push(`ventasHasta=${ventasHasta}`);
+    if (pedidosDesde) params.push(`pedidosDesde=${pedidosDesde}`);
+    if (pedidosHasta) params.push(`pedidosHasta=${pedidosHasta}`);
+    const query = params.length ? `?${params.join('&')}` : '';
+    return this.http.get<{ reportes: Reportes }>(`${API_URL}/reportes${query}`, { withCredentials: true });
+  }
 }

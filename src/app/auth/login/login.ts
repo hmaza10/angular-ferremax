@@ -33,7 +33,7 @@ export class Login {
         if (respuesta.usuario.roles.includes('ADMIN')) {
           this.router.navigate(['/inicio']);
         } else if (respuesta.usuario.roles.includes('EMPLEADO')) {
-          this.router.navigate(['/empleado']);
+          this.router.navigate(['/inicio']);
         } else {
           this.router.navigate(['/inicio']);
         }

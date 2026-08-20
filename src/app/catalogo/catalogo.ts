@@ -6,10 +6,11 @@ import { Productoservice } from './productoservice';
 import { Producto, urlImagenProducto } from './model/Producto';
 import { Carritoservice } from '../carrito/carritoservice';
 import { Toastservice } from '../shared/toastservice';
+import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-catalogo',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, Footer],
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.css',
 })

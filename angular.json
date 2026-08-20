@@ -37,7 +37,9 @@
               "public/css/cart.css",
               "public/css/checkout.css",
               "public/css/pago.css",
-              "public/css/admin.css"
+              "public/css/admin.css",
+              "public/css/ventas.css",
+              "public/css/panel.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
