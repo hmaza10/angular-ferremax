@@ -38,9 +38,9 @@
           </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente" (click)="abrirModalNuevoCliente()">
-              <i class="bi bi-person-plus"></i> Nuevo
-            </button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente"
+            (click)="abrirModalNuevoCliente()" [disabled]="idCliente !== null">
+            <i class="bi bi-person-plus"></i> Nuevo</button>
           </div>
           <div class="col-md-2">
             <label class="form-label">Documento</label>

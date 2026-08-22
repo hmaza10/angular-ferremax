@@ -80,6 +80,9 @@ export class Registrar {
       this.toastservice.error('Ingrese un DNI válido');
       return;
     }
+
+    this.idCliente = null;
+
     this.ventaservice.buscarClientePorDni(this.dni.trim()).subscribe(c => {
       if (c.encontrado) {
         this.idCliente = c.idCliente;
